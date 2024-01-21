@@ -1,6 +1,6 @@
 # My personal boilerplate
 
-# Uses:
+## Uses:
 
 1) Bun package manager
 2) NextJS
