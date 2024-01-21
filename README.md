@@ -1,3 +1,5 @@
+# My personal boilerplate
+
 # Uses:
 
 1) Bun package manager
