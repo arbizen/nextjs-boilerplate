@@ -5,3 +5,4 @@
 3) Shadcn
 4) Clean code
 5) Eslint
+6) Dark theme
