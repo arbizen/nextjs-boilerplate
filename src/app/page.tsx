@@ -9,11 +9,30 @@ export default async function Page() {
   const event = cookies().get('event')?.value;
   const pathOrigin = cookies().get('pathOrigin')?.value;
   const lang = cookies().get('lang')?.value;
-  console.log('Session ID:', sessionId);
-  const res = await axios.get(
+  // const res = await axios.get(
+  //   `https://backend.recovo.me/api/products/get-all-group-sku-by-slug/en/mostaza-algod%C3%B3n-french-terry`,
+  //   { headers: { sessionId, userId, event, pathOrigin, lang } },
+  // );
+  //const data = await res.data;
+  const res = await fetch(
     `https://backend.recovo.me/api/products/get-all-group-sku-by-slug/en/mostaza-algod%C3%B3n-french-terry`,
-    { headers: { sessionId, userId, event, pathOrigin, lang } },
+    {
+      headers: {
+        sessionId: sessionId as string,
+        userId: userId as string,
+        event: event as string,
+        pathOrigin: pathOrigin as string,
+        lang: lang as string,
+      },
+    },
   );
-  const data = await res.data;
-  return <div>{JSON.stringify(data)}</div>;
+  const data = await res.json();
+  return (
+    <div>
+      <div className="my-16">
+        {JSON.stringify({ sessionId, userId, event, pathOrigin, lang, data })}
+      </div>
+      <div className="my-16">{JSON.stringify(data)}</div>
+    </div>
+  );
 }
