@@ -29,10 +29,19 @@ export default async function Page() {
   const data = await res.json();
   return (
     <div>
-      <div className="my-16">
-        {JSON.stringify({ sessionId, userId, event, pathOrigin, lang, data })}
+      <div>Session </div>
+      <div>
+        SessionId: {sessionId}
+        <br />
+        UserId: {userId}
+        <br />
+        Event: {event}
+        <br />
+        Path Origin: {pathOrigin}
+        <br />
+        Language: {lang}
+        <br />
       </div>
-      <div className="my-16">{JSON.stringify(data)}</div>
     </div>
   );
 }

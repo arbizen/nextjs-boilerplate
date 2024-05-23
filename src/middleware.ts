@@ -3,7 +3,36 @@ import type { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
+import {
+  ResponseCookies,
+  RequestCookies,
+} from 'next/dist/server/web/spec-extension/cookies';
+
 export const runtime = 'experimental-edge';
+
+function applySetCookie(req: NextRequest, res: NextResponse) {
+  // 1. Parse Set-Cookie header from the response
+  const setCookies = new ResponseCookies(res.headers);
+  // 2. Construct updated Cookie header for the request
+  const newReqHeaders = new Headers(req.headers);
+  const newReqCookies = new RequestCookies(newReqHeaders);
+  setCookies.getAll().forEach((cookie) => newReqCookies.set(cookie));
+
+  // 3. Set up the “request header overrides” (see https://github.com/vercel/next.js/pull/41380)
+  //    on a dummy response
+  // NextResponse.next will set x-middleware-override-headers / x-middleware-request-* headers
+  const dummyRes = NextResponse.next({ request: { headers: newReqHeaders } });
+
+  // 4. Copy the “request header overrides” headers from our dummy response to the real response
+  dummyRes.headers.forEach((value, key) => {
+    if (
+      key === 'x-middleware-override-headers' ||
+      key.startsWith('x-middleware-request-')
+    ) {
+      res.headers.set(key, value);
+    }
+  });
+}
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -43,6 +72,7 @@ export function middleware(request: NextRequest) {
       path: '/',
     });
     console.log('Session not found.', 'Setting session ID:', randomSessionId);
+    applySetCookie(request, response);
   } else {
     console.log(`--------------------------------`);
     console.log('Session ID:', requestCookie);
