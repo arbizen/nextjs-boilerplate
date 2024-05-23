@@ -15,7 +15,7 @@ export default async function Page() {
   // );
   //const data = await res.data;
   const res = await fetch(
-    `https://backend.recovo.me/api/products/get-all-group-sku-by-slug/en/mostaza-algod%C3%B3n-french-terry`,
+    `https://backend.recovo.me/api/tests/ssr-session-id`,
     {
       headers: {
         sessionId: sessionId as string,
