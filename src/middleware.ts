@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
+export const runtime = 'edge';
+
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 

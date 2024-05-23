@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const sessionId = cookies().get('sessionId')?.value;
   const userId = cookies().get('userId')?.value;
