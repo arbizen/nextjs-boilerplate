@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default async function Page() {
+export default function Page() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
