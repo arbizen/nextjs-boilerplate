@@ -33,7 +33,7 @@ export default function Page() {
   };
   return (
     <form name="contact-form" method="post" onSubmit={handleSubmit}>
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value="contact-form" />
       <p>
         <label>
           Your Name:{' '}
