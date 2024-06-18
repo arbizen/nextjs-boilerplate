@@ -32,7 +32,12 @@ export default function Page() {
     e.preventDefault();
   };
   return (
-    <form name="contact-form" method="post" onSubmit={handleSubmit}>
+    <form
+      name="contact-form"
+      method="post"
+      onSubmit={handleSubmit}
+      netlify-honeypot="bot-field"
+    >
       <input type="hidden" name="form-name" value="contact-form" />
       <p>
         <label>
